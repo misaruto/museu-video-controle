@@ -8,7 +8,7 @@ def main():
         sys.exit(1)
 
     video_path = sys.argv[1]
-    with Pyro5.api.Proxy("PYRONAME:example.video_control") as server:
+    with Pyro5.api.Proxy("PYRONAME:MUSEU_SALA_1.video_control") as server:
         while True:
             cmd = input("Enter command (play/pause/stop/exit): ")
             if cmd == "play":
