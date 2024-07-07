@@ -1,3 +1,4 @@
+
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'rmi_server')
 BEGIN
   CREATE TABLE museu.dbo.rmi_server (
