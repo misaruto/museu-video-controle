@@ -3,6 +3,7 @@ import Pyro5.api
 from dotenv import load_dotenv
 from src.infra.database import DatabaseConnection
 from src.repository.impl.rmi_server_sepository_impl import RmiServerRepositoryImpl
+from src.repository.impl.rmi_server_auth_code_repository_impl import RmiServerAuthCodeRepositoryImpl
 from src.utils.server_util import StartServer
 from src.service.impl.video_control_impl import VideoControlImpl
 
@@ -27,7 +28,13 @@ def app_start(nm_server:str,nm_rmi_server_prefix:str):
     ns.register(f"{nm_rmi_server_prefix}.video_control", uri)
     start_database_connection()
     server_repo = RmiServerRepositoryImpl()
-    server_data = StartServer(server_repo,nm_server,f"PYRONAME:{nm_rmi_server_prefix}")
+    server_auth_repo = RmiServerAuthCodeRepositoryImpl()
+    server_data = StartServer(
+        server_repo,
+        server_auth_repo,
+        nm_server,
+        f"PYRONAME:{nm_rmi_server_prefix}"
+    )
     data = server_data.start_server()
     print(data)
     print(f"{nm_server} is ready.")
