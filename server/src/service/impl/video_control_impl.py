@@ -2,17 +2,18 @@ import Pyro5.api
 import cv2
 import threading
 import time
-import sys
-from server.src.service.video_control import VideoControl
+from src.service.video_control import VideoControl
 
+@Pyro5.api.expose
 class VideoControlImpl(VideoControl):
-    def __init__(self, video_path):
-        self.video_path = video_path
+    def __init__(self):
+        self.video_path = None
         self.cap = None
         self.playing = False
         self.video_thread = None
 
-    def play(self):
+    def play(self,video_path):
+        self.video_path =video_path
         if not self.playing:
             print("Playing video...")
             self.playing = True
