@@ -1,4 +1,4 @@
-from sqlalchemy import update,func
+from sqlalchemy import update,func,or_,and_
 from src.infra.database import DatabaseConnection
 from src.model.rmi_server_model import RmiServerModel
 from src.repository.rmi_server_repository import RmiServerRepository
@@ -8,21 +8,46 @@ class RmiServerRepositoryImpl(RmiServerRepository):
         self.db_connection = DatabaseConnection()
         self.session = self.db_connection.get_session()
     
-    def add_rmi_server(self, rmi_server:RmiServerModel):
+    def add_rmi_server(self, rmi_server:RmiServerModel) -> RmiServerModel:
+        print("Inserindo servidor na base")
         try:
+            self.__deactivate_all_rmi_server_by_name(rmi_server.nm_rmi_server)
+
             self.session.add(rmi_server)
             self.session.commit()
             return rmi_server
         except Exception as e:
             self.session.rollback()
-            print(f"Erro ao adicionar usuário: {e}")
+            print(e)
+            return rmi_server
+
 
     def get_rmi_server(self, id_rmi_server):
         return self.session.query(RmiServerModel).filter_by(id_rmi_server=id_rmi_server).first()
-
+    
+    def fin_active_rmi_server_by_name_or_id(self,id_rmi_server=0,nm_rmi_server=""):
+        try:
+            rmi_server = self.session.query(RmiServerModel).filter(
+                and_(
+                        or_(RmiServerModel.id_rmi_server == id_rmi_server, RmiServerModel.nm_rmi_server == nm_rmi_server),
+                        RmiServerModel.in_active == True
+                    )
+            ).first()
+            return rmi_server
+        except Exception as e:
+            print(e)
+        
     def get_all_servers(self):
         return self.session.query(RmiServerModel).all()
 
+    def __deactivate_all_rmi_server_by_name(self,nm_rmi_server):
+        stmt = update(RmiServerModel)\
+                .where(RmiServerModel.nm_rmi_server == nm_rmi_server)\
+                .where(RmiServerModel.in_active==True)\
+                .values(dt_disabled=func.getdate(), in_active=False)
+        self.session.execute(stmt)
+        self.session.commit()
+    
     def deactivate_rmi_server(self, id_rmi_server):
         try:
             stmt = update(RmiServerModel)\
