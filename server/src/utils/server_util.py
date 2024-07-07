@@ -30,7 +30,7 @@ class StartServer:
             cd_rmi_server_auth = randon_code
         )
         print(new_server_code)
-        self.rmi_server_auth_code_repository.add_rmi_server_auth_code(self.rmi_server_repository,new_server_code)
+        self.rmi_server_auth_code_repository.add_rmi_server_auth_code(new_server_code)
     def start_server(self):
         rmi_server = self.__register_server()
         print(rmi_server)
