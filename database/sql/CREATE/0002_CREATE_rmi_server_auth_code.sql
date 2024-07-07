@@ -8,6 +8,6 @@ BEGIN
     dt_created DATETIME NOT NULL DEFAULT GETDATE(),
     dt_accessed DATETIME NULL,
     CONSTRAINT PK_rmi_server_auth_code PRIMARY KEY (id_rmi_server_auth_code),
-    CONSTRAINT FK01_rmi_server_auth_code_X_rmi_server FOREIGN KEY (id_rmi_server) REFERENCES rmi_server(id_rmi_server) 
+    CONSTRAINT FK01_rmi_server_auth_code_X_rmi_server FOREIGN KEY (id_rmi_server) REFERENCES museu.dbo.rmi_server(id_rmi_server) 
   );
 END;
