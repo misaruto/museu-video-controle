@@ -18,17 +18,17 @@ def start_database_connection():
     DB_PORT = os.getenv("DB_PORT",1433)
 
     connection_string = f"mssql+pymssql://{DB_USER}:{DB_PASSWD}@{DB_SEVER_NAME}:{DB_PORT}/{DB_NAME}"
-    print(connection_string)
     db_conn.initialize(connection_string)
+    return db_conn.get_session()
 
 def app_start(nm_server:str,nm_rmi_server_prefix:str):
     daemon = Pyro5.api.Daemon()
     ns = Pyro5.api.locate_ns()
     uri = daemon.register(VideoControlImpl)
     ns.register(f"{nm_rmi_server_prefix}.video_control", uri)
-    start_database_connection()
-    server_repo = RmiServerRepositoryImpl()
-    server_auth_repo = RmiServerAuthCodeRepositoryImpl()
+    session = start_database_connection()
+    server_repo = RmiServerRepositoryImpl(session)
+    server_auth_repo = RmiServerAuthCodeRepositoryImpl(session)
     server_data = StartServer(
         server_repo,
         server_auth_repo,
