@@ -6,11 +6,11 @@ from src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 from src.repository.rmi_server_auth_code_repository import RmiServerAuthCodeRepository
 class RmiServerAuthCodeRepositoryImpl(RmiServerAuthCodeRepository):
     def __init__(self,db_session:Session):
-        self.session = db_session
+        self.__session = db_session
 
     def add_rmi_server_auth_code(self,rmi_server_auth_code:RmiServerAuthCodeModel):
-        self.session.add(rmi_server_auth_code)
-        self.session.commit()
+        self.__session.add(rmi_server_auth_code)
+        self.__session.commit()
         return rmi_server_auth_code
 
 
@@ -22,8 +22,8 @@ class RmiServerAuthCodeRepositoryImpl(RmiServerAuthCodeRepository):
         stmt = update(RmiServerAuthCodeModel)\
                 .where(RmiServerAuthCodeModel.id_rmi_server_auth_code == rmi_auth.id_rmi_server_auth_code)\
                 .values(in_accessed=True)
-        self.session.execute(stmt)
-        self.session.commit()
+        self.__session.execute(stmt)
+        self.__session.commit()
 
     def __find_rmi_server_auth_code_with_code(self,cd_rmi_server_auth_code:str):
-        return self.session.query(RmiServerAuthCodeModel).filter_by(cd_rmi_server_auth_code=cd_rmi_server_auth_code).first()
+        return self.__session.query(RmiServerAuthCodeModel).filter_by(cd_rmi_server_auth_code=cd_rmi_server_auth_code).first()
