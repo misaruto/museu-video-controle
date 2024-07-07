@@ -25,7 +25,7 @@ class RmiServerRepositoryImpl(RmiServerRepository):
     def get_rmi_server(self, id_rmi_server):
         return self.session.query(RmiServerModel).filter_by(id_rmi_server=id_rmi_server).first()
     
-    def fin_active_rmi_server_by_name_or_id(self,id_rmi_server=0,nm_rmi_server=""):
+    def find_active_rmi_server_by_name_or_id(self,id_rmi_server=0,nm_rmi_server=""):
         try:
             rmi_server = self.session.query(RmiServerModel).filter(
                 and_(
