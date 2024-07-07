@@ -3,7 +3,7 @@ from src.model.rmi_server_model import RmiServerModel
 
 class RmiServerRepository(ABC):
     @abstractmethod
-    def add_rmi_server(self, rmi_server:RmiServerModel):
+    def add_rmi_server(self, rmi_server:RmiServerModel)->RmiServerModel:
         raise NotImplementedError
     @abstractmethod
     def get_rmi_server(self, id_rmi_server):
