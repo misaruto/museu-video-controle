@@ -18,3 +18,6 @@ class RmiServerModel(Base):
     __table_args__ = (
         PrimaryKeyConstraint('id_rmi_server', name='PK_rmi_server'),
     )
+
+    def __repr__(self):
+        return f"<RmiServer(id_rmi_server={self.id_rmi_server}, nm_rmi_server='{self.nm_rmi_server}', nm_rmi_server_uri='{self.nm_rmi_server_uri}', dt_created='{self.dt_created}', dt_disabled='{self.dt_disabled}', in_active={self.in_active})>"
