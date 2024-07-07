@@ -1,24 +1,18 @@
-from sqlalchemy import update,func,or_,and_
-from src.infra.database import DatabaseConnection
+from sqlalchemy import update
+from sqlalchemy.orm import Session
 from src.exceptions.not_found_exception import NotFoundException
 from src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 
 from src.repository.rmi_server_auth_code_repository import RmiServerAuthCodeRepository
 class RmiServerAuthCodeRepositoryImpl(RmiServerAuthCodeRepository):
-    def __init__(self):
-        self.db_connection = DatabaseConnection()
-        self.session = self.db_connection.get_session()
+    def __init__(self,db_session:Session):
+        self.session = db_session
 
     def add_rmi_server_auth_code(self,rmi_server_auth_code:RmiServerAuthCodeModel):
-        print("Inserindo codigo do servidor na base")
-        try:
-            self.session.add(rmi_server_auth_code)
-            self.session.commit()
-            return rmi_server_auth_code
-        except Exception as e:
-            self.session.rollback()
-            print(e)
-            return rmi_server_auth_code
+        self.session.add(rmi_server_auth_code)
+        self.session.commit()
+        return rmi_server_auth_code
+
 
         
     def authenticate_user_with_rmi_server_code(self, rmi_server_auth_code:RmiServerAuthCodeModel):

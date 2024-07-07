@@ -1,27 +1,19 @@
 from sqlalchemy import update,func,or_,and_
-from src.infra.database import DatabaseConnection
+from sqlalchemy.orm import Session
 from src.model.rmi_server_model import RmiServerModel
 from src.repository.rmi_server_repository import RmiServerRepository
 
 class RmiServerRepositoryImpl(RmiServerRepository):
-    def __init__(self):
-        self.db_connection = DatabaseConnection()
-        self.session = self.db_connection.get_session()
+    def __init__(self,db_session:Session):
+        self.session = db_session
     
     def add_rmi_server(self, rmi_server:RmiServerModel) -> RmiServerModel:
         print("Inserindo servidor na base")
-        try:
-            self.__deactivate_all_rmi_server_by_name(rmi_server.nm_rmi_server)
-
-            self.session.add(rmi_server)
-            self.session.commit()
-            return rmi_server
-        except Exception as e:
-            self.session.rollback()
-            print(e)
-            return rmi_server
-
-
+        self.__deactivate_all_rmi_server_by_name(rmi_server.nm_rmi_server)
+        self.session.add(rmi_server)
+        self.session.commit()
+        return rmi_server
+    
     def get_rmi_server(self, id_rmi_server):
         return self.session.query(RmiServerModel).filter_by(id_rmi_server=id_rmi_server).first()
     
