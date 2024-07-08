@@ -6,7 +6,7 @@ class RmiServerSessionRepository(ABC):
     def add_rmi_server_session(self, rmi_server_session:RmiServerSessionModel) -> RmiServerSessionModel:
         raise NotImplementedError
     @abstractmethod
-    def increase_session_time(self,rmi_server_session:RmiServerSessionModel,amount_seconds:int):
+    def extend_session_time(self,rmi_server_session:RmiServerSessionModel,amount_seconds:int):
         raise NotImplementedError
     @abstractmethod
     def end_session(self,rmi_server_session:RmiServerSessionModel):
