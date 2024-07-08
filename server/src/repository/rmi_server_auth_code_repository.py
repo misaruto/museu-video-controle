@@ -6,5 +6,8 @@ class RmiServerAuthCodeRepository(ABC):
     def add_rmi_server_auth_code(self, rmi_server_auth_code:RmiServerAuthCodeModel):
         raise NotImplementedError
     @abstractmethod
-    def authenticate_user_with_rmi_server_code(self, cd_rmi_server_auth_code):
+    def set_rmi_server_auth_code_accessed(self, rmi_auth:RmiServerAuthCodeModel) -> RmiServerAuthCodeModel:
+        raise NotImplementedError
+    @abstractmethod
+    def find_rmi_server_auth_code_with_code(self,cd_rmi_server_auth_code:str) -> RmiServerAuthCodeModel:
         raise NotImplementedError
