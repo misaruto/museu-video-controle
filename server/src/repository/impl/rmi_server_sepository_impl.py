@@ -1,6 +1,6 @@
 from sqlalchemy import update,func,or_,and_
 from sqlalchemy.orm import Session
-from src.model.rmi_server_model import RmiServerModel
+from server.src.model.db_models.rmi_server_model import RmiServerModel
 from src.repository.rmi_server_repository import RmiServerRepository
 
 class RmiServerRepositoryImpl(RmiServerRepository):

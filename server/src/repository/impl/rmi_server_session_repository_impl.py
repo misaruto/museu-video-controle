@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import update,func
 from src.exceptions.not_found_exception import NotFoundException 
-from src.model.rmi_server_session_model import RmiServerSessionModel
+from server.src.model.db_models.rmi_server_session_model import RmiServerSessionModel
 
 class RmiServerSessionRepositoryImpl():
     def __init__(self,db_session:Session):

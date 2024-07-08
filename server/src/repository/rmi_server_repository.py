@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.model.rmi_server_model import RmiServerModel
+from server.src.model.db_models.rmi_server_model import RmiServerModel
 
 class RmiServerRepository(ABC):
     @abstractmethod
