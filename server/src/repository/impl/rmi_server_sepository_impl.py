@@ -18,17 +18,14 @@ class RmiServerRepositoryImpl(RmiServerRepository):
         return self.__session.query(RmiServerModel).filter_by(id_rmi_server=id_rmi_server).first()
     
     def find_active_rmi_server_by_name_or_id(self,id_rmi_server=0,nm_rmi_server=""):
-        try:
-            rmi_server = self.__session.query(RmiServerModel).filter(
-                and_(
-                        or_(RmiServerModel.id_rmi_server == id_rmi_server, RmiServerModel.nm_rmi_server == nm_rmi_server),
-                        RmiServerModel.in_active == True
-                    )
-            ).first()
-            return rmi_server
-        except Exception as e:
-            print(e)
-        
+        rmi_server = self.__session.query(RmiServerModel).filter(
+            and_(
+                    or_(RmiServerModel.id_rmi_server == id_rmi_server, RmiServerModel.nm_rmi_server == nm_rmi_server),
+                    RmiServerModel.in_active == True
+                )
+        ).first()
+        return rmi_server
+
     def get_all_servers(self):
         return self.__session.query(RmiServerModel).all()
 
