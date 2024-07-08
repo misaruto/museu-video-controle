@@ -12,7 +12,7 @@ class RmiServerSessionRepositoryImpl():
         self.__session.commit()
         return rmi_server_session
     
-    def increase_session_time(self,rmi_server_session:RmiServerSessionModel,amount_seconds:int):
+    def extend_session_time(self,rmi_server_session:RmiServerSessionModel,amount_seconds:int):
         stmt = update(RmiServerSessionModel)\
             .where(RmiServerSessionModel.id_rmi_server_session == rmi_server_session.id_rmi_server_session)\
             .where(RmiServerSessionModel.in_rmi_server_session_expired==False)\
