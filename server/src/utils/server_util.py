@@ -3,7 +3,7 @@ from src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 from src.repository.rmi_server_repository import RmiServerRepository
 from src.repository.rmi_server_auth_code_repository import RmiServerAuthCodeRepository
 
-from src.utils.randon_code_util import random_generator
+from server.src.utils.randon_util import random_generator
 class StartServer:
     def __init__(self,
                     rmi_server_repository:RmiServerRepository,
