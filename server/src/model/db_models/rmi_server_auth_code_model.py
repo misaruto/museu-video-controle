@@ -1,7 +1,7 @@
 from sqlalchemy import Column, BigInteger, String, DateTime, Boolean, ForeignKey, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import PrimaryKeyConstraint, ForeignKeyConstraint
-from src.model.rmi_server_model import RmiServerModel
+from server.src.model.db_models.rmi_server_model import RmiServerModel
 
 Base = declarative_base()
 
