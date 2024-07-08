@@ -1,25 +1,26 @@
-import Pyro5.api
-import sys
+import os
 import time
+import Pyro5.api
+from dotenv import load_dotenv
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python client.py <path_to_video>")
-        sys.exit(1)
-
-    video_path = sys.argv[1]
+    token = os.getenv("SERVER_SECRET_TOKEN")
     with Pyro5.api.Proxy("PYRONAME:MUSEU_SALA_1.video_control") as server:
         while True:
-            cmd = input("Enter command (play/pause/stop/exit): ")
-            if cmd == "play":
-                server.play(video_path)
-            elif cmd == "pause":
-                server.pause()
-            elif cmd == "stop":
-                server.stop()
-            elif cmd == "exit":
-                break
-            time.sleep(1)
+            try:
+                cmd = input("Enter command (play/pause/stop/exit): ")
+                if cmd == "play":
+                    server.play(token)
+                elif cmd == "pause":
+                    server.pause(token)
+                elif cmd == "stop":
+                    server.stop(token)
+                elif cmd == "exit":
+                    break
+                time.sleep(1)
+            except Exception as e:
+                print(f"Erro ao executar comando: {e}")
 
 if __name__ == "__main__":
+    load_dotenv()
     main()
