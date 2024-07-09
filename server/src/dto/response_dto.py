@@ -12,7 +12,7 @@ class ResponseSuccessDto(BaseModel,ResponseDtoAbstract):
     status: int
     message: str
     resource: str
-    data: Any = None
+    data:Any = None
     def set_response(self, response):
         self.data = response
 

@@ -1,7 +1,7 @@
 from sqlalchemy import Column, BigInteger, String, DateTime, Boolean, ForeignKey, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import PrimaryKeyConstraint, ForeignKeyConstraint
-from server.src.model.rmi_server_model import RmiServerModel
+from src.model.rmi_server_model import RmiServerModel
 
 Base = declarative_base()
 
@@ -12,9 +12,9 @@ class RmiServerAuthCodeModel(Base):
     id_rmi_server_auth_code = Column(BigInteger, primary_key=True, autoincrement=True)
     id_rmi_server = Column(BigInteger, nullable=False)
     cd_rmi_server_auth = Column(String(6), nullable=False)
-    dt_created = Column(DateTime, nullable=False, default=func.getdate())
-    in_accessed = Column(Boolean, nullable=False, default=False)
-    dt_accessed = Column(DateTime)
+    dt_rmi_server_auth_created = Column(DateTime, nullable=False, default=func.getdate())
+    in_rmi_server_auth_accessed = Column(Boolean, nullable=False, default=False)
+    dt_rmi_server_auth_accessed = Column(DateTime)
 
     __table_args__ = (
         PrimaryKeyConstraint('id_rmi_server_auth_code', name='PK_rmi_server_auth_code'),
@@ -24,6 +24,6 @@ class RmiServerAuthCodeModel(Base):
         return (
             f"<RmiServerAuthCodeModel(id_rmi_server_auth_code={self.id_rmi_server_auth_code}, "
             f"id_rmi_server={self.id_rmi_server}, cd_rmi_server_auth='{self.cd_rmi_server_auth}', "
-            f"dt_created='{self.dt_created}', in_accessed={self.in_accessed}, "
-            f"dt_accessed='{self.dt_accessed}')>"
+            f"dt_created='{self.dt_rmi_server_auth_created}', in_accessed={self.in_rmi_server_auth_accessed}, "
+            f"dt_accessed='{self.dt_rmi_server_auth_accessed}')>"
         )

@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
-from server.src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
+from src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 
 class RmiServerAuthCodeRepository(ABC):
     @abstractmethod
-    def add_rmi_server_auth_code(self, rmi_server_auth_code:RmiServerAuthCodeModel):
+    def add_rmi_server_auth_code(self, rmi_server_auth_code:RmiServerAuthCodeModel) -> RmiServerAuthCodeModel:
         raise NotImplementedError
     @abstractmethod
     def set_rmi_server_auth_code_accessed(self, rmi_auth:RmiServerAuthCodeModel) -> RmiServerAuthCodeModel:

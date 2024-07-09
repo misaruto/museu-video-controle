@@ -11,13 +11,15 @@ class RmiServerModel(Base):
     id_rmi_server = Column(BigInteger, primary_key=True, autoincrement=True)
     nm_rmi_server = Column(String(30), nullable=False)
     nm_rmi_server_uri = Column(String(60), nullable=False)
-    dt_created = Column(DateTime, nullable=False, default=func.getdate())
-    dt_disabled = Column(DateTime, nullable=True)
-    in_active = Column(Boolean, nullable=False, default=True)
+    dt_rmi_server_created = Column(DateTime, nullable=False, default=func.getdate())
+    dt_rmi_serve_disabled = Column(DateTime, nullable=True)
+    in_rmi_serve_active = Column(Boolean, nullable=False, default=True)
 
     __table_args__ = (
         PrimaryKeyConstraint('id_rmi_server', name='PK_rmi_server'),
     )
 
     def __repr__(self):
-        return f"<RmiServer(id_rmi_server={self.id_rmi_server}, nm_rmi_server='{self.nm_rmi_server}', nm_rmi_server_uri='{self.nm_rmi_server_uri}', dt_created='{self.dt_created}', dt_disabled='{self.dt_disabled}', in_active={self.in_active})>"
+        return f"""<RmiServer(id_rmi_server={self.id_rmi_server}, nm_rmi_server='{self.nm_rmi_server}',
+        nm_rmi_server_uri='{self.nm_rmi_server_uri}', dt_created='{self.dt_rmi_server_created}',
+        dt_disabled='{self.dt_rmi_serve_disabled}', in_rmi_serve_active={self.in_rmi_serve_active})>"""

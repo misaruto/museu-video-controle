@@ -17,9 +17,9 @@ def resp_ok(status=200,resource="", message="", data=None, **extras):
         resource=resource,
         dados=data,
     )
-
+    response_model.set_response(data.dict())
     response = response_model.model_dump()
-
+    print(response)
     response.update(extras)
     resp = jsonify(response)
     resp.status_code = status
@@ -30,6 +30,11 @@ def resp_error(status=400,resource="", errors={}, msg="",transaction_id=""):
     """
     Responses ERROR
     """
+    if not type(errors)==dict and not type(errors)==str:
+        try:
+            errors = errors.message
+        except Exception as e:
+            errors = e
     response_model = ResponseErrorDto(
         status=status,
         message=msg,

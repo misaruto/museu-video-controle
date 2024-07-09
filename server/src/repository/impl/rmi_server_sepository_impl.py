@@ -1,6 +1,6 @@
 from sqlalchemy import update,func,or_,and_
 from sqlalchemy.orm import Session
-from server.src.model.rmi_server_model import RmiServerModel
+from src.model.rmi_server_model import RmiServerModel
 from src.repository.rmi_server_repository import RmiServerRepository
 
 class RmiServerRepositoryImpl(RmiServerRepository):
@@ -21,7 +21,7 @@ class RmiServerRepositoryImpl(RmiServerRepository):
         rmi_server = self.__session.query(RmiServerModel).filter(
             and_(
                     or_(RmiServerModel.id_rmi_server == id_rmi_server, RmiServerModel.nm_rmi_server == nm_rmi_server),
-                    RmiServerModel.in_active == True
+                    RmiServerModel.in_rmi_serve_active == True
                 )
         ).first()
         return rmi_server
@@ -32,8 +32,8 @@ class RmiServerRepositoryImpl(RmiServerRepository):
     def __deactivate_all_rmi_server_by_name(self,nm_rmi_server):
         stmt = update(RmiServerModel)\
                 .where(RmiServerModel.nm_rmi_server == nm_rmi_server)\
-                .where(RmiServerModel.in_active==True)\
-                .values(dt_disabled=func.getdate(), in_active=False)
+                .where(RmiServerModel.in_rmi_serve_active==True)\
+                .values(dt_rmi_serve_disabled=func.getdate(), in_rmi_serve_active=False)
         self.__session.execute(stmt)
         self.__session.commit()
     
@@ -41,7 +41,7 @@ class RmiServerRepositoryImpl(RmiServerRepository):
         try:
             stmt = update(RmiServerModel)\
                 .where(RmiServerModel.id_rmi_server == id_rmi_server)\
-                .values(dt_disabled=func.getdate(), in_active=False)
+                .values(dt_rmi_serve_disabled=func.getdate(), in_rmi_serve_active=False)
             
             self.__session.execute(stmt)
             self.__session.commit()

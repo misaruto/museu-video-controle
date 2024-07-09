@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from server.src.dto.rmi_server_auth_dto import RmiServerAuthCodeDto
+from src.dto.rmi_server_auth_dto import RmiServerAuthCodeDto
 from src.model.rmi_server_session_model import RmiServerSessionModel
 
 class RmiServerAuthService(ABC):

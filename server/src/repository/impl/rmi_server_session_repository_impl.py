@@ -1,7 +1,9 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import update,func
+from sqlalchemy import update,func,and_,select,join
 from src.exceptions.not_found_exception import NotFoundException 
-from server.src.model.rmi_server_session_model import RmiServerSessionModel
+from src.model.rmi_server_session_model import RmiServerSessionModel
+from src.model.rmi_server_model import RmiServerModel
+from src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 
 class RmiServerSessionRepositoryImpl():
     def __init__(self,db_session:Session):
@@ -35,3 +37,21 @@ class RmiServerSessionRepositoryImpl():
         self.__session.execute(stmt)
         self.__session.commit()
         return rmi_server_session
+
+    def find_active_session_by_token(self,token) -> tuple[RmiServerAuthCodeModel, RmiServerSessionModel, RmiServerModel]:
+        if not token:
+            raise Exception("Sessão não encontrada ou token invalido")
+        stmt = select(RmiServerSessionModel, RmiServerAuthCodeModel, RmiServerModel).\
+        select_from(
+            RmiServerSessionModel
+        ).join(RmiServerAuthCodeModel,RmiServerAuthCodeModel.id_rmi_server_auth_code == RmiServerSessionModel.id_rmi_server_auth_code)\
+        .join(RmiServerModel,RmiServerModel.id_rmi_server == RmiServerAuthCodeModel.id_rmi_server)\
+        .where(RmiServerSessionModel.cd_rmi_server_session_token == token)\
+        .where(RmiServerSessionModel.in_rmi_server_session_expired == False)\
+        .where(RmiServerSessionModel.dtf_expected_rmi_server_session < func.getdate())
+
+        server_session = self.__session.execute(stmt).fetchone()
+
+        if not server_session:
+            raise Exception("Sessão não encontrada ou inválida")
+        return server_session

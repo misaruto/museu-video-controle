@@ -19,8 +19,8 @@ class RmiServerDto(BaseModel):
         return v
 
     class Config:
-        orm_mode = True
-        schema_extra = {
+        from_attributes = True
+        json_schema_extra = {
             "example": {
                 "idRmiServer": 1,
                 "nmRmiServer": "ExampleServer",
@@ -37,26 +37,26 @@ class RmiServerDto(BaseModel):
             idRmiServer=obj.id_rmi_server,
             nmRmiServer=obj.nm_rmi_server,
             nmRmiServerUri=obj.nmRmiServerUri,
-            dtCreated=obj.dt_created,
-            dtDisabled=obj.dt_disabled,
-            inActive=obj.in_active
+            dtCreated=obj.dt_rmi_server_created,
+            dtDisabled=obj.dt_rmi_serve_disabled,
+            inActive=obj.in_rmi_serve_active
         )
 
     def to_orm(self) -> RmiServerModel:
         return RmiServerModel(
             id_rmi_server=self.idRmiServer,
-            nm_rmi_server=self.nm_rmi_server,
+            nm_rmi_server=self.nmRmiServer,
             nm_rmi_server_uri=self.nmRmiServerUri,
-            dt_created=self.dtCreated,
-            dt_disabled=self.dtDisabled,
-            in_active=self.inActive
+            dt_rmi_server_created=self.dtCreated,
+            dt_rmi_serve_disabled=self.dtDisabled,
+            in_rmi_serve_active=self.inActive
         )
 
 class RmiServerRequestDto(BaseModel):
     rmiServer: RmiServerDto
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "rmiServer": {
                     "idRmiServer": 1,

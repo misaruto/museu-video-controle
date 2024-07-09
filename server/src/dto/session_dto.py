@@ -15,8 +15,8 @@ class RmiServerSessionDto(BaseModel):
     nmUserCreatedSession: Optional[str] = Field(None, max_length=30, description="Nome do usuário que criou a sessão")
 
     class Config:
-        orm_mode = True
-        schema_extra = {
+        from_attributes = True
+        json_schema_extra = {
             "example": {
                 "idRmiServerSession": 1,
                 "idRmiServerAuthCode": 1,
@@ -40,7 +40,7 @@ class RmiServerSessionDto(BaseModel):
             qtSessionDurationSeconds=obj.qt_session_duration_seconds,
             dtfExpectedRmiServerSession=obj.dtf_expected_rmi_server_session,
             dtfRmiServerSession=obj.dtf_rmi_server_session,
-            dtCreated=obj.dt_created,
+            dtCreated=obj.dt_rmi_server_session_created,
             nmUserCreatedSession=obj.nm_user_created_session
         )
 
@@ -53,7 +53,7 @@ class RmiServerSessionDto(BaseModel):
             qt_session_duration_seconds=self.qtSessionDurationSeconds,
             dtf_expected_rmi_server_session=self.dtfExpectedRmiServerSession,
             dtf_rmi_server_session=self.dtfRmiServerSession,
-            dt_created=self.dtCreated,
+            dt_rmi_server_session_created=self.dtCreated,
             nm_user_created_session=self.nmUserCreatedSession
         )
 
@@ -61,7 +61,7 @@ class RmiServerSessionRequestDto(BaseModel):
     rmiServerSession: RmiServerSessionDto
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "rmiServerSession": {
                     "idRmiServerSession": 1,
@@ -81,7 +81,7 @@ class RmiServerSessionResponseDto(BaseModel):
     rmiServerSession: RmiServerSessionDto
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "rmiServerSession": {
                     "idRmiServerSession": 1,

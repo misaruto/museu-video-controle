@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
-from server.src.model.rmi_server_session_model import RmiServerSessionModel
+from src.model.rmi_server_session_model import RmiServerSessionModel
+from src.model.rmi_server_model import RmiServerModel
+from src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 
 class RmiServerSessionRepository(ABC):
     @abstractmethod
@@ -10,4 +12,7 @@ class RmiServerSessionRepository(ABC):
         raise NotImplementedError
     @abstractmethod
     def end_session(self,rmi_server_session:RmiServerSessionModel):
+        raise NotImplementedError
+    @abstractmethod
+    def find_active_session_by_token(self,token) -> tuple[RmiServerAuthCodeModel, RmiServerSessionModel, RmiServerModel]:
         raise NotImplementedError

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 def main():
     token = os.getenv("SERVER_SECRET_TOKEN")
-    with Pyro5.api.Proxy("PYRONAME:MUSEU_SALA_1.video_control") as server:
+    with Pyro5.api.Proxy("PYRONAME:MUSEU_SALA_1.video_handler") as server:
         while True:
             try:
                 cmd = input("Enter command (play/pause/stop/exit): ")

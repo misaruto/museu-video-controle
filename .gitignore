@@ -170,3 +170,5 @@ taskdef.json
 .history/
 pytest-report.xml
 env-*/
+
+qrcode.png

@@ -24,9 +24,6 @@ loggerFile = logging.FileHandler(f"{file_dir}/{APP_NAME}.log")
 loggerFile.setFormatter(formatter)
 logger.addHandler(loggerFile)
 
-def config_database():
-  db_connection = DatabaseConnection()
-
 
 def config_routes(app):
   BASE_PATH_HTTP = "/api"
@@ -61,7 +58,7 @@ def app_start():
   config_routes(app)
   set_swagger(app)
   os.environ["APP_NAME"] = APP_NAME
-  #CORS(app, resources={r"*": {"origins": "*"}})
+  CORS(app, resources={r"*": {"origins": "*"}})
   return app
 
 app = app_start()

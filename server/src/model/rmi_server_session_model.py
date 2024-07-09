@@ -1,7 +1,7 @@
 from sqlalchemy import Column, BigInteger,Integer, String, DateTime, Boolean, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import PrimaryKeyConstraint, ForeignKeyConstraint
-from server.src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
+from src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 Base = declarative_base()
 
 class RmiServerSessionModel(Base):
@@ -12,10 +12,10 @@ class RmiServerSessionModel(Base):
     id_rmi_server_auth_code = Column(BigInteger, nullable=False)
     in_rmi_server_session_expired = Column(Boolean, nullable=False, default=False)
     cd_rmi_server_session_token = Column(String(36),nullable=False)
-    qt_session_duration_seconds = Column(Integer),
+    qt_session_duration_seconds = Column(Integer)
     dtf_expected_rmi_server_session = Column(DateTime, nullable=False)
     dtf_rmi_server_session = Column(DateTime, nullable=True)
-    dt_created = Column(DateTime, nullable=False, default=func.getdate())
+    dt_rmi_server_session_created = Column(DateTime, nullable=False, default=func.getdate())
     nm_user_created_session = Column(String(30), nullable=True)
 
     __table_args__ = (
@@ -29,6 +29,6 @@ class RmiServerSessionModel(Base):
             f"in_rmi_server_session_expired={self.in_rmi_server_session_expired}, "
             f"dtf_expected_rmi_server_session='{self.dtf_expected_rmi_server_session}', "
             f"dtf_rmi_server_session='{self.dtf_rmi_server_session}', "
-            f"dt_created='{self.dt_created}', "
+            f"dt_created='{self.dt_rmi_server_session_created}', "
             f"nm_user_created_session='{self.nm_user_created_session}')>"
         )

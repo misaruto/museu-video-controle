@@ -6,8 +6,8 @@ from src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 class RmiServerAuthCodeDto(BaseModel):
     idRmiServerAuthCode: Optional[int] = Field(None, description="ID do código de autenticação do servidor RMI")
     idRmiServer: Optional[int] = Field(None, description="ID do servidor RMI")
-    cdRmiServerAuth: str = Field(..., max_length=6, description="Código de autenticação do servidor RMI")
-    dtCreated: Optional[datetime] = Field(..., description="Data de criação do código")
+    cdRmiServerAuth: Optional[str] = Field(max_length=6, description="Código de autenticação do servidor RMI")
+    dtCreated: Optional[datetime] = Field(None, description="Data de criação do código")
     inAccessed: bool = Field(False, description="Indica se o código foi acessado")
     dtAccessed: Optional[datetime] = Field(None, description="Data de acesso do código")
 
@@ -18,8 +18,8 @@ class RmiServerAuthCodeDto(BaseModel):
         return v
 
     class Config:
-        orm_mode = True
-        schema_extra = {
+        from_attributes = True
+        json_schema_extra = {
             "example": {
                 "idRmiServerAuthCode": 1,
                 "idRmiServer": 1,
@@ -36,9 +36,9 @@ class RmiServerAuthCodeDto(BaseModel):
             idRmiServerAuthCode=obj.id_rmi_server_auth_code,
             idRmiServer=obj.id_rmi_server,
             cdRmiServerAuth=obj.cd_rmi_server_auth,
-            dtCreated=obj.dt_created,
-            inAccessed=obj.in_accessed,
-            dtAccessed=obj.dt_accessed
+            dtCreated=obj.dt_rmi_server_auth_created,
+            inAccessed=obj.in_rmi_server_auth_accessed,
+            dtAccessed=obj.dt_rmi_server_auth_accessed
         )
 
     def to_orm(self) -> RmiServerAuthCodeModel:
@@ -46,16 +46,16 @@ class RmiServerAuthCodeDto(BaseModel):
             id_rmi_server_auth_code=self.idRmiServerAuthCode,
             id_rmi_server=self.idRmiServer,
             cd_rmi_server_auth=self.cdRmiServerAuth,
-            dt_created=self.dtCreated,
-            in_accessed=self.inAccessed,
-            dt_accessed=self.dtAccessed
+            dt_rmi_server_auth_created=self.dtCreated,
+            in_rmi_server_auth_accessed=self.inAccessed,
+            dt_rmi_server_auth_accessed=self.dtAccessed
         )
 
 class RmiServerAuthCodeRequestDto(BaseModel):
     rmiServerAuthCode: RmiServerAuthCodeDto
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "rmiServerAuthCode": {
                     "idRmiServerAuthCode": 1,
@@ -71,7 +71,7 @@ class RmiServerAuthCodeResponseDto(BaseModel):
     rmiServerAuthCode: RmiServerAuthCodeDto
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "rmiServerAuthCode": {
                     "idRmiServerAuthCode": 1,

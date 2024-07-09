@@ -8,7 +8,7 @@ BEGIN
     dtf_expected_rmi_server_session DATETIME NOT NULL,
     qt_session_duration_seconds INT NULL,
     dtf_rmi_server_session DATETIME NULL,
-    dt_created DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_rmi_server_session_created DATETIME NOT NULL DEFAULT GETDATE(),
     nm_user_created_session VARCHAR(30) NULL,
     CONSTRAINT PK_rmi_server_session PRIMARY KEY (id_rmi_server_session),
     CONSTRAINT FK01_rmi_server_session_X_rmi_server_auth_code FOREIGN KEY (id_rmi_server_auth_code) REFERENCES museu.dbo.rmi_server_auth_code(id_rmi_server_auth_code) 
