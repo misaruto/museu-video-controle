@@ -2,7 +2,7 @@ from flask_restful import Api
 from src.resource.authentication_resource import AuthenticationResource
 
 def config_resource_routes(api: Api):
-  BASE_PATH_HTTP = ""
+  BASE_PATH_HTTP = "/museu"
   api.add_resource(
     AuthenticationResource,
     f"{BASE_PATH_HTTP}/server/auth",

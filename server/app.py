@@ -8,7 +8,7 @@ from flask_restful import Api
 from flask_swagger_ui import get_swaggerui_blueprint
 from src.infra.logs.custom_json_formatter import CustomJsonFormatter
 from src.routes import config_resource_routes
-
+from src.infra.db.sqlserver_connection import DatabaseConnection
 
 APP_NAME = "museu-manager-backend"
 
@@ -24,10 +24,12 @@ loggerFile = logging.FileHandler(f"{file_dir}/{APP_NAME}.log")
 loggerFile.setFormatter(formatter)
 logger.addHandler(loggerFile)
 
+def config_database():
+  db_connection = DatabaseConnection()
 
 
 def config_routes(app):
-  BASE_PATH_HTTP = "/api/museu"
+  BASE_PATH_HTTP = "/api"
   api = Api()
   api.prefix = BASE_PATH_HTTP
   config_resource_routes(api)

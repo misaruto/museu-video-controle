@@ -1,5 +1,5 @@
 from flask import jsonify
-from server.src.model.response_model import ResponseErrorModel, ResponseSuccessModel
+from src.dto.response_dto import ResponseErrorDto, ResponseSuccessDto
 
 def resp_ok(status=200,resource="", message="", data=None, **extras):
     """
@@ -11,14 +11,14 @@ def resp_ok(status=200,resource="", message="", data=None, **extras):
     if not message:
         message = "The request was successful"
 
-    response_model = ResponseSuccessModel(
+    response_model = ResponseSuccessDto(
         status=status,
         message=message,
         resource=resource,
         dados=data,
     )
 
-    response = response_model.dict()
+    response = response_model.model_dump()
 
     response.update(extras)
     resp = jsonify(response)
@@ -30,7 +30,7 @@ def resp_error(status=400,resource="", errors={}, msg="",transaction_id=""):
     """
     Responses ERROR
     """
-    response_model = ResponseErrorModel(
+    response_model = ResponseErrorDto(
         status=status,
         message=msg,
         resource=resource,
@@ -38,7 +38,7 @@ def resp_error(status=400,resource="", errors={}, msg="",transaction_id=""):
         transactionId=transaction_id
     )
 
-    resp = jsonify(response_model.dict())
+    resp = jsonify(response_model.model_dump())
 
     resp.status_code = status
 

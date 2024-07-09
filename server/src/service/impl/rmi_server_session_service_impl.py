@@ -1,5 +1,5 @@
-from abc import ABC, abstractmethod
-from server.src.model.db_models.rmi_server_session_model import RmiServerSessionModel
+from src.dto.session_dto import RmiServerSessionDto
+from src.model.rmi_server_session_model import RmiServerSessionModel
 from src.service.rmi_server_session_service import RmiServerSessionService
 from src.repository.rmi_server_session_repository import RmiServerSessionRepository
 
@@ -12,5 +12,5 @@ class RmiServerSessionServiceImpl(RmiServerSessionService):
     def validate_server_session() -> RmiServerSessionModel:
         raise NotImplementedError
 
-    def extend_server_session(self,server_session:RmiServerSessionModel) -> RmiServerSessionModel:
+    def extend_server_session(self,server_session:RmiServerSessionDto) -> RmiServerSessionModel:
         return self.rmi_server_session_repo.extend_session_time(server_session,DEFAULT_SESSION_EXTEND_SECONDS)

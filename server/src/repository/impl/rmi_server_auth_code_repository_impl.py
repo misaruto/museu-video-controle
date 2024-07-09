@@ -1,7 +1,7 @@
 from sqlalchemy import update,func,and_
 from sqlalchemy.orm import Session
 from src.exceptions.not_found_exception import NotFoundException
-from server.src.model.db_models.rmi_server_auth_code_model import RmiServerAuthCodeModel
+from server.src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 
 from src.repository.rmi_server_auth_code_repository import RmiServerAuthCodeRepository
 class RmiServerAuthCodeRepositoryImpl(RmiServerAuthCodeRepository):

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from server.src.model.db_models.rmi_server_auth_code_model import RmiServerAuthCodeModel
+from server.src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 
 class RmiServerAuthCodeRepository(ABC):
     @abstractmethod

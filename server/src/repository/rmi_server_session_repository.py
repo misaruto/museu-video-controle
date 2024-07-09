@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from server.src.model.db_models.rmi_server_session_model import RmiServerSessionModel
+from server.src.model.rmi_server_session_model import RmiServerSessionModel
 
 class RmiServerSessionRepository(ABC):
     @abstractmethod

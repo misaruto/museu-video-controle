@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from server.src.model.db_models.rmi_server_session_model import RmiServerSessionModel
-
+from src.dto.session_dto import RmiServerSessionDto
+from server.src.model.rmi_server_session_model import RmiServerSessionModel
+from src.model.rmi_server_session_model import RmiServerSessionModel
 
 class RmiServerSessionService(ABC):
     @abstractmethod
@@ -8,5 +9,5 @@ class RmiServerSessionService(ABC):
       raise NotImplementedError
 
     @abstractmethod
-    def extend_server_session() -> RmiServerSessionModel:
+    def extend_server_session(self,server_session:RmiServerSessionDto) -> RmiServerSessionModel:
       raise NotImplementedError

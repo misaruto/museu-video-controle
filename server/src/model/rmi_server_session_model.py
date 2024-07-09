@@ -1,7 +1,7 @@
-from sqlalchemy import Column, BigInteger,Integer, String, DateTime, Boolean, ForeignKey, func
+from sqlalchemy import Column, BigInteger,Integer, String, DateTime, Boolean, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import PrimaryKeyConstraint, ForeignKeyConstraint
-from server.src.model.db_models.rmi_server_auth_code_model import RmiServerAuthCodeModel
+from server.src.model.rmi_server_auth_code_model import RmiServerAuthCodeModel
 Base = declarative_base()
 
 class RmiServerSessionModel(Base):
